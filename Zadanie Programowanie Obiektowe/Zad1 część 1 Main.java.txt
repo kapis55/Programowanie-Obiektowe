@@ -1,0 +1,17 @@
+public class Main {
+    public static void main(String[] args) {
+        int dividend = 10;
+        int divisor = 0;
+
+        try {
+            if (divisor == 0) {
+                throw new MyCustomException("Dzielenie");
+            }
+            int result = dividend / divisor;
+            System.out.println("Wynik: " + result);
+        } catch (MyCustomException e) {
+            System.out.println("Obsługiwane działanie: " + e.getOperation());
+            e.printStackTrace();
+        }
+    }
+}

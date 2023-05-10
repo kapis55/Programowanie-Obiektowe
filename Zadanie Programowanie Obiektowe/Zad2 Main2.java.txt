@@ -1,0 +1,81 @@
+import java.util.*;
+
+public class Main2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Podaj liczbę wartości: ");
+        int n = scanner.nextInt();
+
+        List<Integer> liczby = new ArrayList<>();
+        System.out.println("Podaj " + n + " wartości:");
+
+        Random random = new Random();
+
+        for (int i = 0; i < n; i++) {
+            int liczba = random.nextInt();
+            liczby.add(liczba);
+        }
+
+
+        int dominant = znajdzDominante(liczby);
+        System.out.println("Dominanta: " + dominant);
+
+
+        double median = obliczMedianę(liczby);
+        System.out.println("Mediana: " + median);
+
+
+        List<Integer> unikalneLiczby = usuńPowtórzenia(liczby);
+
+
+        double średnia = obliczŚrednią(unikalneLiczby);
+        System.out.println("Średnia arytmetyczna: " + średnia);
+    }
+
+    private static int znajdzDominante(List<Integer> liczby) {
+        Map<Integer, Integer> liczbaCzęstość = new HashMap<>();
+        int maxCzęstość = 0;
+        int dominant = 0;
+
+        for (int liczba : liczby) {
+            int częstość = liczbaCzęstość.getOrDefault(liczba, 0) + 1;
+            liczbaCzęstość.put(liczba, częstość);
+            if (częstość > maxCzęstość) {
+                maxCzęstość = częstość;
+                dominant = liczba;
+            }
+        }
+
+        return dominant;
+    }
+
+    private static double obliczMedianę(List<Integer> liczby) {
+        Collections.sort(liczby);
+        int rozmiar = liczby.size();
+
+        if (rozmiar % 2 == 0) {
+            int indeks1 = rozmiar / 2 - 1;
+            int indeks2 = rozmiar / 2;
+            double mediana = (liczby.get(indeks1) + liczby.get(indeks2)) / 2.0;
+            return mediana;
+        } else {
+            int indeks = rozmiar / 2;
+            double mediana = liczby.get(indeks);
+            return mediana;
+        }
+    }
+
+    private static List<Integer> usuńPowtórzenia(List<Integer> liczby) {
+        Set<Integer> unikalne = new LinkedHashSet<>(liczby);
+        return new ArrayList<>(unikalne);
+    }
+
+    private static double obliczŚrednią(List<Integer> liczby) {
+        int suma = 0;
+        for (int liczba : liczby) {
+            suma += liczba;
+        }
+        return (double) suma / liczby.size();
+    }
+}

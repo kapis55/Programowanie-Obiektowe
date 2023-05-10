@@ -1,0 +1,14 @@
+
+    class MyCustomException extends ArithmeticException {
+        private String operation;
+
+        public MyCustomException(String operation) {
+            super("Błąd podczas wykonania działania: " + operation);
+            this.operation = operation;
+        }
+
+        public String getOperation() {
+            return operation;
+        }
+    }
+
